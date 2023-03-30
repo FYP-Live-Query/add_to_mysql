@@ -1,4 +1,5 @@
 import mysql.connector
+import csv
 from datetime import datetime
 
 # Establish a connection to the MySQL database
@@ -33,8 +34,9 @@ sql = "INSERT INTO networkTraffic (ip, date, time, browser, eventTimestamp) VALU
 #   cursor.execute(sql, row)
 #   mydb.commit()
 # Execute the SQL query for each tuple in the data list
-for i in range(0, len(data), 3):
-    batch = data[i:i+3]
+n =3 # batch-size
+for i in range(0, len(data), n):
+    batch = data[i:i+n]
     cursor.executemany(sql, batch)
     mydb.commit()
 
