@@ -1,5 +1,6 @@
 import mysql.connector
-from datetime import datetime
+import csv
+from datetime import datetime, timezone, timedelta
 
 # Establish a connection to the MySQL database
 mydb = mysql.connector.connect(
@@ -22,9 +23,9 @@ cursor = mydb.cursor()
 with open('records2.csv', 'r') as file:
     reader = csv.reader(file)
     next(reader) # Skip the header row
-    data = [(row[0], row[1], row[2], row[-1], datetime.now()) for row in reader]
-
-
+    data = [(row[0], row[1], row[2], row[-1], datetime.utcnow().replace(tzinfo=timezone.utc)) for row in reader] #when both backend and db in gen9
+    # data = [(row[0], row[1], row[2], row[-1], datetime.fromtimestamp(datetime.now().timestamp(), timezone.utc).astimezone(timezone(timedelta(hours=5, minutes=30)))) for row in reader]
+    # data = [(row[0], row[1], row[2], row[-1], datetime.now()) for row in reader]
 # Define the SQL query to insert data into the table
 sql = "INSERT INTO networkTraffic (ip, date, time, browser, eventTimestamp) VALUES (%s, %s, %s, %s, %s)"
 
