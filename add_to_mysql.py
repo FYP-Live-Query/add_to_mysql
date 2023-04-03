@@ -27,7 +27,7 @@ with open('records2.csv', 'r') as file:
     # data = [(row[0], row[1], row[2], row[-1], datetime.fromtimestamp(datetime.now().timestamp(), timezone.utc).astimezone(timezone(timedelta(hours=5, minutes=30)))) for row in reader]
     # data = [(row[0], row[1], row[2], row[-1], datetime.now()) for row in reader]
 # Define the SQL query to insert data into the table
-sql = "INSERT INTO networkTraffic (ip, date, timestamp, browser,traffic, eventTimestamp) VALUES (%s, %s, %s, %s, %s)"
+sql = "INSERT INTO networkTraffic (ip, date, timestamp, browser,traffic, eventTimestamp) VALUES (%s, %s, %s, %s, %s,%s)"
 
 # Execute the SQL query for each tuple in the data list
 # for row in data:
