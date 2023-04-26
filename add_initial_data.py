@@ -34,19 +34,20 @@ sql = "INSERT INTO networkTraffic (ip, date, timestamp, browser, traffic, eventT
 
 n=1
 
-browsers = ['chr', 'fox', 'mie', 'opr', 'saf']
 
 # Run the loop n times
 while True:
+  
+  browsers = ['chr', 'fox', 'mie', 'opr', 'saf']
   # Read data from the CSV file
   with open(data_dir, 'r') as file:
       reader = csv.reader(file)
       next(reader) # Skip the header row
       for row in reader:
-        data = (row[0], row[1], row[2], browsers[random.randint(0,4)],int(row[-7]))
+        data = (row[0], row[1], row[2], browsers[random.randint(0,4)],float(row[-7]))
         cursor.execute(sql, data)
         print(sql)
-  mydb.commit()
+        mydb.commit()
   # Add a one-second delay before the next iteration
   time.sleep(60)
 
